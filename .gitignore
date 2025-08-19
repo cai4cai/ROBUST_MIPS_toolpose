@@ -1,0 +1,20 @@
+# ignore mmpose（your fork source code）
+mmpose/
+surgicaltool_bm/custom_src/datasets
+
+# Python cache
+surgicaltool_bm/__pycache__/
+*.py[cod]
+
+.venv/
+env/
+venv/
+
+logs/
+work_dirs/
+results/
+*.log
+
+data/
+*.pth
+*.ckpt

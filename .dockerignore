@@ -1,0 +1,78 @@
+# model and weight files
+*.pth
+*.pt
+*.pkl
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+
+# Data dir
+data/
+datasets/
+work_dirs/
+outputs/
+results/
+logs/
+checkpoints/
+
+# Large dir related to MMPose
+mmpose/work_dirs/
+mmpose/data/
+mmpose/checkpoints/
+mmpose/.mim/
+mmpose/demo/
+
+# Large dir related to surgicaltool_bm
+surgicaltool_bm/work_dirs/
+surgicaltool_bm/predictions_ViTPoseLarge_all_keys.json
+surgicaltool_bm/predictions_ViTPoseLarge_first_1.json
+surgicaltool_bm/predictions_ViTPoseLarge_first_10.json
+surgicaltool_bm/predictions_ViTPoseLarge_first_100_keys.json
+
+# compressed files
+*.zip
+*.tar.gz
+*.tar
+*.rar
+*.7z
+
+# Image and video files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.mp4
+*.avi
+*.mov
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+.git/
+.gitignore
+.github/
+.vscode/
+.idea/
+*.md
+LICENSE
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# environment files
+.env
+.venv
+venv/
+env/
+
+# temp files
+*.tmp
+*.temp
+*.log
+*.out
