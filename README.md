@@ -7,7 +7,7 @@ Built on top of [MMPose v1.3.0](https://github.com/open-mmlab/mmpose).
 Localisation of surgical tools constitutes a foundational building block for computer-assisted interventional technologies. Works in this field typically focus on training deep learning models to perform segmentation tasks. Performance of learning-based approaches is limited by the availability of diverse annotated data. We argue that skeletal pose annotations are a more efficient annotation approach for surgical tools, striking a balance between richness of semantic information and ease of annotation, thus allowing for accelerated growth of available annotated data. To encourage adoption of this annotation style, we present, ROBUST-MIPS, a combined tool pose and tool instance segmentation dataset derived from the existing ROBUST-MIS dataset. Our enriched dataset facilitates the joint study of these two annotation styles and allow head-to-head comparison on various downstream tasks.
 To demonstrate the adequacy of pose annotations for surgical tool localisation, we set up a simple benchmark using popular pose estimation methods and observe high-quality results. To ease adoption, together with the dataset, we release our benchmark models and custom tool pose annotation software.
 
-[🔗 Download SurgicalToolPoseEstimation](https://github.com/cai4cai/ROBUST_MIPS_toolpose)
+[🔗 Download ROBUST_MIPS_toolpose](https://github.com/cai4cai/ROBUST_MIPS_toolpose)
 
 [🔗 Download tool-pose-annotation-gui](https://github.com/cai4cai/tool-pose-annotation-gui)
 
@@ -95,11 +95,36 @@ dataset/
 ├── testing/
 │   ├── img/                      # raw test images
 │   └── json/                     # any original per-image metadata
+├── converted_detections_val.json   # results of mmdetection model on val set
+├── converted_detections_test.json  # results of mmdetection model on testing set
 ├── cocoformat_train.json         # COCO‐style train annotations
 ├── cocoformat_val.json           # COCO‐style val annotations
 └── cocoformat_test.json          # COCO‐style test annotations
 ```
 
+## tool
+
+Training model:
+```
+cd /workspace/surgicaltool_bm
+
+python /workspace/surgicaltool_bm/tools/train.py \
+       /workspace/surgicaltool_bm/configs/rtmpose-l_8xb256-420e_coco-256x192.py \
+       --resume
+```
+
+Testing:
+```
+cd /workspace/surgicaltool_bm
+
+python /workspace/surgicaltool_bm/tools/test.py \
+       /workspace/surgicaltool_bm/configs/rtmpose-l_8xb256-420e_coco-256x192.py \
+       /workspace/surgicaltool_bm/work_dirs/best_coco_AP_epoch_285.pth \
+       --work-dir /workspace/surgicaltool_bm/work_dirs/test/rtmpose-l_8xb256-420e_coco-256x192 \
+       --show-dir outputs \
+       --out /workspace/surgicaltool_bm/work_dirs/test/rtmpose-l_8xb256-420e_coco-256x192/metric_results.json \
+       --cfg-options='model.test_cfg.output_heatmaps=True' \
+```
 <!-- Should you wish to use or refer to this data set, you must cite the following papers:
 1. **Zhe, H.**, **Charlie, B.**, **Gongyu, Z.**, **Huanyu, T.**, **Christos, B.**, **Tom, V.**, *ROBUST-MIPS: A Combined Skeletal Pose Representation and Instance Segmentation Dataset for Laparoscopic Surgical Instruments*, arXiv preprint arXiv:xxxx.xxxx, 2025. Available at: [arXiv link](https://arxiv.org/abs/xxxx.xxxx)
 2. **Maier-Hein, L., Wagner, M., Ross, T., Reinke, A., Bodenstedt, S., Full, P. M., ... & Müller-Stich, B. P. (2021)**. *Heidelberg colorectal data set for surgical data science in the sensor operating room*. Scientific data, 8(1), 1-11.
