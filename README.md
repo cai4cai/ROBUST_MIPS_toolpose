@@ -76,7 +76,7 @@ Verifies contents of cocoformat_train/val/test.json and visualizes annotations
 
 
 ## ROBUST-MIPS Dataset 
-The **ROBUST-MIPS** dataset is publicly available for download: 
+The **ROBUST-MIPS** dataset and our trained model weights are publicly available for download: 
 
 [🔗 Download ROBUST-MIPS](https://doi.org/10.7303/syn64023381)
 
