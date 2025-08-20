@@ -1,4 +1,4 @@
-# ROBUST-MIPS: A Combined Skeletal Pose Representation and Instance Segmentation Dataset for Laparoscopic Surgical Instruments
+# ROBUST-MIPS: A Combined Skeletal Pose and Instance Segmentation Dataset for Laparoscopic Surgical Instruments
 
 This repository provides implementation of surgical-tool pose estimation (based on **ROBUST-MIPS**).
 Built on top of [MMPose v1.3.0](https://github.com/open-mmlab/mmpose).
@@ -136,9 +136,9 @@ Should you wish to use or refer to this benchmark, you must cite the following p
 
 ```bibtex
 @misc{ROBUST-MIPS,
-  title        = {ROBUST-MIPS: A Combined Skeletal Pose Representation and Instance Segmentation Dataset for Laparoscopic Surgical Instruments},
+  title        = {ROBUST-MIPS: A Combined Skeletal Pose and Instance Segmentation Dataset for Laparoscopic Surgical Instruments},
   author       = {Zhe Han, Charlie Budd, Gongyu Zhang, Huanyu Tian, Christos Bergeles, and Tom Vercauteren},
-  howpublished = {\url{https://github.com/ffZheHan/SurgicalToolPoseEstimation}},
+  howpublished = {\url{https://github.com/cai4cai/ROBUST_MIPS_toolpose}},
   year         = {2025}
 }
 @misc{mmpose2020,
