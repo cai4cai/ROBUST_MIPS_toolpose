@@ -132,7 +132,7 @@ dataset/
 └── cocoformat_test.json          # COCO‐style test annotations
 ```
 
-## tool
+## Tool
 
 Training model:
 ```
@@ -177,4 +177,6 @@ python /workspace/surgicaltool_bm/tools/test.py \
 
 ```
 
-## License ROBUST-MIPS is realeased unde a Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA) license, which means that it will be publicly available for non-commercial usage. 
+## License 
+
+ROBUST-MIPS is realeased unde a Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA) license, which means that it will be publicly available for non-commercial usage. 
