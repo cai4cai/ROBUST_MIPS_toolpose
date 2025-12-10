@@ -11,12 +11,42 @@ To demonstrate the adequacy of pose annotations for surgical tool localisation, 
 
 [🔗 Download tool-pose-annotation-gui](https://github.com/cai4cai/tool-pose-annotation-gui)
 
+[🔗 Download ROBUST_MIPS Dataset](https://doi.org/10.7303/syn64023381)
+
+
+## Model Configuration
+
+The configuration files for the benchmarked models are located in:  
+`ROBUST_MIPS_toolpose/surgicaltool_bm/configs`
+Since this project is built upon MMPose (which defaults to human pose estimation), specific overrides are required to adapt it for the ROBUST-MIPS dataset.
+
+### dataset_info
+
+Taking the ROBUST-MIPS dataset as an example. `keypoint_info` defines the keypoints, `skeleton_info` defines the connection relationships between keypoints, and `sigmas` represents the per-keypoint localization uncertainty used for OKS calculation.
+
+### number fo keypoints
+
+set `NUM_KEYPOINTS=4`, and update it in the `model` configuration
+
+### bbox_file
+
+Since the Top-Down paradigm is a two-stage approach, the first stage requires generating bounding box detection results. In this implementation, mmdetection was used to porvided the bbox detection results. The corresponding results should be updated in the `val_dataloader` and `test_dataloader`. 
+
+### test_evaluator
+
+Given the unordered nature of the surgical tool endpoints, when evaluating prediction results, we should select the optimal match for the tip pairs (considering both the standard and swapped assignments of Tip1 and Tip2).  This metric is implemented via `swap_coco_metric` (`surgicaltool_bm/custom_src/evaluation/metric/swap_coco_metric.py`), which needs to be imported in the config file using `custom_imports`.
+
+## Customize Dataset
+Since our annotation software (tool-pose-annotation-gui) generates a separate JSON annotation file for each image, we need to aggregate these independent, single-image annotation files into three unified annotation files corresponding to the training, validation, and testing sets. The aggregated format should align with COCO. 
+
+Importantly, during the generation of these annotation files, we modified the formula for calculating `area`. Instead of storing the standard area, we store $\frac{\mathrm{width}^2 + \mathrm{height}^2}{2}$. This conversion process can be completed using the scripts provided in the `utilities` folder.
+
 ## Overview
 
 This project extends the MMPose v1.3.0 framework to support:
 
 - **Custom dataset**: `ROBUST-MIPS` for laparoscopic frames  
-- **Custom evaluation metrics**: custom OKS metric parameters     
+- **Custom evaluation metrics**: custom OKS metric parameters `swap_coco_metric`    
 - **Plug-and-play interface**: uses MMPose’s `tools/train.py` & `tools/test.py`  
 
 ## Docker
@@ -132,7 +162,6 @@ python /workspace/surgicaltool_bm/tools/test.py \
 
 
 ## Citation
-Should you wish to use or refer to this benchmark, you must cite the following papers:
 
 ```bibtex
 
@@ -145,31 +174,7 @@ Should you wish to use or refer to this benchmark, you must cite the following p
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2508.21096}, 
 }
-@misc{mmpose2020,
-  title        = {OpenMMLab Pose Estimation Toolbox and Benchmark},
-  author       = {MMPose Contributors},
-  howpublished = {\url{https://github.com/open-mmlab/mmpose}},
-  year         = {2020}
-}
-@article{maier2021heidelberg,
-  title={Heidelberg colorectal data set for surgical data science in the sensor operating room},
-  author={Maier-Hein, Lena and Wagner, Martin and Ross, Tobias and Reinke, Annika and Bodenstedt, Sebastian and Full, Peter M and Hempe, Hellena and Mindroc-Filimon, Diana and Scholz, Patrick and Tran, Thuy Nuong and others},
-  journal={Scientific data},
-  volume={8},
-  number={1},
-  pages={101},
-  year={2021},
-  publisher={Nature Publishing Group UK London}
-}
-@article{ross2021comparative,
-  title={Comparative validation of multi-instance instrument segmentation in endoscopy: results of the ROBUST-MIS 2019 challenge},
-  author={Ro{\ss}, Tobias and Reinke, Annika and Full, Peter M and Wagner, Martin and Kenngott, Hannes and Apitz, Martin and Hempe, Hellena and Mindroc-Filimon, Diana and Scholz, Patrick and Tran, Thuy Nuong and others},
-  journal={Medical image analysis},
-  volume={70},
-  pages={101920},
-  year={2021},
-  publisher={Elsevier}
-}
+
 ```
 
 ## License ROBUST-MIPS is realeased unde a Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA) license, which means that it will be publicly available for non-commercial usage. 

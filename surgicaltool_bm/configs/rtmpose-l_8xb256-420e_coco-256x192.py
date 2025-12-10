@@ -237,7 +237,7 @@ val_dataloader = dict(
         test_mode=True,
         pipeline=val_pipeline,
     ))
-test_dataloader = dict(
+train_dataloader = dict(
     batch_size=val_batch_size,
     num_workers=10,
     persistent_workers=True,
